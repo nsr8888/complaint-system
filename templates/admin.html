@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <h2>Admin Panel</h2>
+      <a href="/logout">Logout</a>
+    </div>
+
+    <div class="container">
+      <div class="card">
+        <h3>All Complaints</h3>
+
+        {% for row in data %}
+
+        <div class="complaint">
+          <div>
+            <b>{{row[1]}}</b><br />
+            <strong>{{row[2]}}</strong><br />
+            <small>{{row[3]}}</small>
+          </div>
+
+          <div>
+            <span class="badge {{row[4]|lower}}"> {{row[4]}} </span>
+
+            <br /><br />
+
+            <a href="/update/{{row[0]}}/Resolved">✔</a>
+            |
+            <a href="/update/{{row[0]}}/Rejected">✖</a>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

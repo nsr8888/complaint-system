@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <h2>Complaint System</h2>
+      <a href="/logout">Logout</a>
+    </div>
+
+    <div class="container">
+      <div class="card">
+        <h3>Welcome Student 👋</h3>
+        <p>Submit and track your complaints.</p>
+      </div>
+
+      <div class="card">
+        <h3>New Complaint</h3>
+
+        <form action="/add_complaint" method="post" onsubmit="showAlert()">
+          <input type="text" name="subject" placeholder="Subject" required />
+
+          <textarea name="message" placeholder="Message" rows="4"></textarea>
+
+          <br /><br />
+
+          <button>Submit</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Your Complaints</h3>
+
+        {% for row in data %}
+
+        <div class="complaint">
+          <div>
+            <b>{{row[2]}}</b><br />
+            <small>{{row[3]}}</small>
+          </div>
+
+          <div>
+            {% if row[4]=="Pending" %}
+            <span class="badge pending">Pending</span>
+
+            {% elif row[4]=="Resolved" %}
+            <span class="badge resolved">Resolved</span>
+
+            {% else %}
+            <span class="badge rejected">Rejected</span>
+            {% endif %}
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+
+    <script>
+      function showAlert() {
+        Swal.fire({
+          icon: "success",
+          title: "Submitted!",
+          text: "Complaint Sent Successfully",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    </script>
+  </body>
+</html>
